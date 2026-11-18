@@ -1,0 +1,227 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000012345678900000001 /* XoniFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000022345678900000001 /* XoniFlowApp.swift */; };
+		A10000032345678900000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000042345678900000001 /* ContentView.swift */; };
+		A10000052345678900000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10000062345678900000001 /* Assets.xcassets */; };
+		A10000072345678900000001 /* www in Resources */ = {isa = PBXBuildFile; fileRef = A10000082345678900000001 /* www */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A10000002345678900000001 /* XoniFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XoniFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000022345678900000001 /* XoniFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XoniFlowApp.swift; sourceTree = "<group>"; };
+		A10000042345678900000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A10000062345678900000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A10000082345678900000001 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		A10000092345678900000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A10000102345678900000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000112345678900000001 = {
+			isa = PBXGroup;
+			children = (
+				A10000122345678900000001 /* XoniFlow */,
+				A10000132345678900000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000132345678900000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000002345678900000001 /* XoniFlow.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000122345678900000001 /* XoniFlow */ = {
+			isa = PBXGroup;
+			children = (
+				A10000022345678900000001 /* XoniFlowApp.swift */,
+				A10000042345678900000001 /* ContentView.swift */,
+				A10000062345678900000001 /* Assets.xcassets */,
+				A10000082345678900000001 /* www */,
+				A10000092345678900000001 /* Info.plist */,
+			);
+			path = XoniFlow;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000142345678900000001 /* XoniFlow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000152345678900000001 /* Build configuration list for PBXNativeTarget "XoniFlow" */;
+			buildPhases = (
+				A10000162345678900000001 /* Sources */,
+				A10000102345678900000001 /* Frameworks */,
+				A10000172345678900000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XoniFlow;
+			productName = XoniFlow;
+			productReference = A10000002345678900000001 /* XoniFlow.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A10000182345678900000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = A10000192345678900000001 /* Build configuration list for PBXProject "XoniFlow" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A10000112345678900000001;
+			productRefGroup = A10000132345678900000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000142345678900000001 /* XoniFlow */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000172345678900000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000052345678900000001 /* Assets.xcassets in Resources */,
+				A10000072345678900000001 /* www in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10000162345678900000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000032345678900000001 /* ContentView.swift in Sources */,
+				A10000012345678900000001 /* XoniFlowApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A10000202345678900000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A10000212345678900000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A10000222345678900000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = XoniFlow/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xoni.flow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A10000232345678900000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = XoniFlow/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xoni.flow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A10000192345678900000001 /* Build configuration list for PBXProject "XoniFlow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000202345678900000001 /* Debug */,
+				A10000212345678900000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000152345678900000001 /* Build configuration list for PBXNativeTarget "XoniFlow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000222345678900000001 /* Debug */,
+				A10000232345678900000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A10000182345678900000001 /* Project object */;
+}

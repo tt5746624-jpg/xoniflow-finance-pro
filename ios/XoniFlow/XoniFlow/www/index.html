@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>XoniFlow Pro — Income & Expense Suite</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app-shell">
+    <header class="top-bar">
+        <div class="brand-row">
+            <img src="assets/app_icon.png" alt="XoniFlow" class="brand-logo" id="headerAppIcon" />
+            <div>
+                <div class="brand-title">XoniFlow Pro</div>
+                <div class="brand-sub" id="streakBadge">
+                    <span data-icon="shield" class="svg-slot"></span>
+                    <span>Personal Finance Vault</span>
+                </div>
+            </div>
+        </div>
+        <div class="top-actions">
+            <button class="icon-btn" id="btnPrivacyBlur" title="Privacy Mode"><span data-icon="eye" class="svg-slot"></span></button>
+            <button class="icon-btn" id="btnQuickCalc" title="Calculators & Tools"><span data-icon="calculator" class="svg-slot"></span></button>
+            <button class="icon-btn" id="btnQuickColor" title="Custom Color & Icon Studio"><span data-icon="palette" class="svg-slot"></span></button>
+            <button class="icon-btn" id="btnLockApp" title="PIN Lock"><span data-icon="lock" class="svg-slot"></span></button>
+        </div>
+    </header>
+
+    <main class="main-scroll">
+
+        <section class="tab-pane active" id="tab-home">
+            <div class="hero-card">
+                <div class="hero-glow"></div>
+                <div class="hero-top">
+                    <span class="hero-label">Total Net Balance</span>
+                    <span class="currency-badge" id="btnCycleCurrency">MMK (Ks)</span>
+                </div>
+                <div class="hero-balance" id="heroNetBalance">0 Ks</div>
+                <div class="hero-metrics">
+                    <div class="metric-box">
+                        <div class="metric-dot inc"><span data-icon="arrow_down" class="svg-slot"></span></div>
+                        <div>
+                            <div class="metric-lbl">Total Income</div>
+                            <div class="metric-val" id="heroIncomeVal" style="color:var(--income)">+0 Ks</div>
+                        </div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-dot exp"><span data-icon="arrow_up" class="svg-slot"></span></div>
+                        <div>
+                            <div class="metric-lbl">Total Expense</div>
+                            <div class="metric-val" id="heroExpenseVal" style="color:var(--expense)">-0 Ks</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--border-subtle);font-size:0.75rem;color:var(--text-muted);">
+                    <span id="safeDailySpend">Safe Daily Spend: 0 Ks/day</span>
+                    <span id="savingsRatePill" style="color:var(--primary);font-weight:800;">Savings Rate: 0%</span>
+                </div>
+            </div>
+
+            <div class="m3-card" id="quickStartCard">
+                <div class="sec-header" style="margin-bottom:6px;">
+                    <span class="sec-title"><span data-icon="plus_circle" class="svg-slot"></span> Quick Add Your Income or Expense</span>
+                    <span class="sec-sub" id="btnOpenModalInline">Full Form</span>
+                </div>
+                <div class="input-row" style="margin-bottom:8px;">
+                    <input type="text" id="quickTitleBox" class="m3-input" placeholder="Description (e.g. Salary, Dinner, Fuel)" />
+                    <input type="number" id="quickAmountBox" class="m3-input" placeholder="Amount" style="max-width:130px;" />
+                </div>
+                <div class="grid-2">
+                    <button class="m3-btn" id="btnQuickAddIncome" style="background:var(--income);color:#0F0D13;">
+                        <span data-icon="arrow_down" class="svg-slot"></span> + Add Income
+                    </button>
+                    <button class="m3-btn" id="btnQuickAddExpense" style="background:var(--expense);color:#FFFFFF;">
+                        <span data-icon="arrow_up" class="svg-slot"></span> - Add Expense
+                    </button>
+                </div>
+            </div>
+
+            <div class="sec-header">
+                <span class="sec-title"><span data-icon="wallet" class="svg-slot"></span> Accounts & Wallets</span>
+                <span class="sec-sub" id="btnAddWallet">+ New Wallet</span>
+            </div>
+            <div class="h-scroll" id="walletCarousel"></div>
+
+            <div class="sec-header">
+                <span class="sec-title"><span data-icon="bolt" class="svg-slot"></span> 1-Tap Custom Shortcuts</span>
+                <span class="sec-sub" id="btnAddShortcut">+ Create Shortcut</span>
+            </div>
+            <div class="h-scroll" id="quickTemplateRow"></div>
+
+            <div class="m3-card">
+                <div class="h-scroll" id="periodFilterRow" style="margin-bottom:10px;">
+                    <span class="chip active" data-period="all">All Time</span>
+                    <span class="chip" data-period="today">Today</span>
+                    <span class="chip" data-period="week">This Week</span>
+                    <span class="chip" data-period="month">This Month</span>
+                    <span class="chip" data-period="income">Income Only</span>
+                    <span class="chip" data-period="expense">Expense Only</span>
+                    <span class="chip" data-period="pinned">Starred</span>
+                </div>
+                <div class="input-row" style="margin-bottom:0;">
+                    <input type="text" id="searchInput" class="m3-input" placeholder="Search title, #tag, merchant, note..." />
+                    <select id="sortSelect" class="m3-select" style="max-width:130px;">
+                        <option value="newest">Newest</option>
+                        <option value="highest">Highest</option>
+                        <option value="lowest">Lowest</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="m3-card" style="border-color:rgba(var(--primary-rgb),0.35);">
+                <div class="sec-header" style="margin-bottom:4px;">
+                    <span class="sec-title"><span data-icon="sparkle" class="svg-slot"></span> Smart Cashflow Coach</span>
+                    <span class="badge-tag" id="healthScoreBadge">Ready</span>
+                </div>
+                <p id="aiCoachText" style="font-size:0.79rem;color:var(--text-muted);line-height:1.45;"></p>
+            </div>
+
+            <div class="sec-header">
+                <span class="sec-title" id="txCountHeader">Transactions (0)</span>
+                <span class="sec-sub" id="btnExportCsvQuick"><span data-icon="download" class="svg-slot"></span> Export CSV</span>
+            </div>
+            <div class="tx-list" id="txListContainer"></div>
+        </section>
+
+        <section class="tab-pane" id="tab-analytics">
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="chart_bar" class="svg-slot"></span> Income vs Expense Overview</span>
+                    <span class="badge-tag">Live Canvas</span>
+                </div>
+                <canvas id="barChartCanvas" width="460" height="200" style="width:100%;height:185px;"></canvas>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="chart_pie" class="svg-slot"></span> Expense Category Breakdown</span>
+                    <span class="sec-sub" id="topCategoryLabel">No expenses yet</span>
+                </div>
+                <canvas id="donutChartCanvas" width="460" height="210" style="width:100%;height:195px;"></canvas>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="trend_up" class="svg-slot"></span> Net Worth & Cashflow Curve</span>
+                    <span class="badge-tag">Cumulative</span>
+                </div>
+                <canvas id="trendChartCanvas" width="460" height="180" style="width:100%;height:165px;"></canvas>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="calendar" class="svg-slot"></span> Monthly Activity Heatmap</span>
+                    <span class="sec-sub">28-Day Grid</span>
+                </div>
+                <div class="heatmap-grid" id="heatmapGrid"></div>
+            </div>
+        </section>
+
+        <section class="tab-pane" id="tab-planning">
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="layers" class="svg-slot"></span> 50 / 30 / 20 Budget Rule Analyzer</span>
+                    <span class="badge-tag">Auto-Calculated</span>
+                </div>
+                <div id="rule503020Box" style="font-size:0.8rem;color:var(--text-muted);line-height:1.5;"></div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="target" class="svg-slot"></span> Monthly Category Budgets</span>
+                    <span class="sec-sub" id="btnEditBudget">+ Add Budget Limit</span>
+                </div>
+                <div id="budgetListContainer"></div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="trophy" class="svg-slot"></span> Savings Goals & Wishlists</span>
+                    <span class="sec-sub" id="btnAddGoal">+ New Goal</span>
+                </div>
+                <div id="goalsListContainer"></div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="repeat" class="svg-slot"></span> Recurring Bills & Subscriptions</span>
+                    <span class="sec-sub" id="btnAddRecurring">+ Add Bill</span>
+                </div>
+                <div id="recurringListContainer"></div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="users" class="svg-slot"></span> Debt, Loan & IOU Tracker</span>
+                    <span class="sec-sub" id="btnAddDebt">+ Add Record</span>
+                </div>
+                <div id="debtListContainer"></div>
+            </div>
+        </section>
+
+        <section class="tab-pane" id="tab-colors">
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="palette" class="svg-slot"></span> Live Custom Color Picker Studio</span>
+                    <button class="m3-btn secondary" id="btnNativeAndroidPicker" style="padding:5px 10px;font-size:0.74rem;">Native M3 RGB Dialog</button>
+                </div>
+                <p style="font-size:0.76rem;color:var(--text-muted);margin-bottom:10px;">
+                    Select any UI color token below, then drag on the 2D HSV Color Wheel, adjust RGB/Hex sliders, or pick a 1-tap Designer Preset.
+                </p>
+
+                <div class="token-grid" id="colorTokenSelector">
+                    <div class="token-pill active" data-token="--primary">
+                        <span class="token-dot" id="dot--primary" style="background:#00E676"></span>
+                        <div>
+                            <div style="font-size:0.76rem;font-weight:700;">Primary Accent</div>
+                            <div style="font-size:0.66rem;color:var(--text-muted);" id="hex--primary">#00E676</div>
+                        </div>
+                    </div>
+                    <div class="token-pill" data-token="--secondary">
+                        <span class="token-dot" id="dot--secondary" style="background:#FFD54F"></span>
+                        <div>
+                            <div style="font-size:0.76rem;font-weight:700;">Secondary Accent</div>
+                            <div style="font-size:0.66rem;color:var(--text-muted);" id="hex--secondary">#FFD54F</div>
+                        </div>
+                    </div>
+                    <div class="token-pill" data-token="--income">
+                        <span class="token-dot" id="dot--income" style="background:#00E676"></span>
+                        <div>
+                            <div style="font-size:0.76rem;font-weight:700;">Income Color</div>
+                            <div style="font-size:0.66rem;color:var(--text-muted);" id="hex--income">#00E676</div>
+                        </div>
+                    </div>
+                    <div class="token-pill" data-token="--expense">
+                        <span class="token-dot" id="dot--expense" style="background:#FF5252"></span>
+                        <div>
+                            <div style="font-size:0.76rem;font-weight:700;">Expense Color</div>
+                            <div style="font-size:0.66rem;color:var(--text-muted);" id="hex--expense">#FF5252</div>
+                        </div>
+                    </div>
+                    <div class="token-pill" data-token="--bg-main">
+                        <span class="token-dot" id="dot--bg-main" style="background:#0F0D13"></span>
+                        <div>
+                            <div style="font-size:0.76rem;font-weight:700;">App Background</div>
+                            <div style="font-size:0.66rem;color:var(--text-muted);" id="hex--bg-main">#0F0D13</div>
+                        </div>
+                    </div>
+                    <div class="token-pill" data-token="--bg-card">
+                        <span class="token-dot" id="dot--bg-card" style="background:#1D1B20"></span>
+                        <div>
+                            <div style="font-size:0.76rem;font-weight:700;">Card Surface</div>
+                            <div style="font-size:0.66rem;color:var(--text-muted);" id="hex--bg-card">#1D1B20</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="color-wheel-wrap">
+                    <canvas id="colorWheelCanvas" width="210" height="210"></canvas>
+                    <div style="width:100%;">
+                        <div style="display:flex;justify-content:space-between;font-size:0.74rem;margin-bottom:4px;">
+                            <span>Brightness / Value</span>
+                            <span id="brightnessLabel">95%</span>
+                        </div>
+                        <input type="range" id="brightnessSlider" min="5" max="100" value="95" style="width:100%;" />
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <input type="text" id="customHexInput" class="m3-input" value="#00E676" placeholder="#RRGGBB" />
+                    <input type="color" id="systemColorInput" value="#00e676" style="width:48px;height:40px;border:none;background:none;cursor:pointer;" />
+                    <button class="m3-btn" id="btnApplyHex">Apply</button>
+                </div>
+
+                <div style="display:grid;gap:6px;margin-top:8px;">
+                    <div style="display:flex;align-items:center;gap:8px;font-size:0.74rem;">
+                        <span style="width:18px;color:#FF5252;font-weight:800;">R</span>
+                        <input type="range" id="sliderR" min="0" max="255" value="0" style="flex:1;" />
+                        <span id="valR" style="width:28px;text-align:right;">0</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:0.74rem;">
+                        <span style="width:18px;color:#00E676;font-weight:800;">G</span>
+                        <input type="range" id="sliderG" min="0" max="255" value="230" style="flex:1;" />
+                        <span id="valG" style="width:28px;text-align:right;">230</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:0.74rem;">
+                        <span style="width:18px;color:#40C4FF;font-weight:800;">B</span>
+                        <input type="range" id="sliderB" min="0" max="255" value="118" style="flex:1;" />
+                        <span id="valB" style="width:28px;text-align:right;">118</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="grid" class="svg-slot"></span> Custom Vector Icon Generator</span>
+                    <span class="badge-tag">Zero Emoji Engine</span>
+                </div>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:8px;">
+                    Customize vector SVG icons for any category or generate a custom PNG/SVG launcher badge with your chosen colors.
+                </p>
+                <div class="input-row">
+                    <select id="iconGenCategorySelect" class="m3-select"></select>
+                    <button class="m3-btn secondary" id="btnExportCustomIconPng">Download Icon PNG</button>
+                </div>
+                <div class="icon-gen-grid" id="iconGeneratorPickerGrid"></div>
+                <canvas id="customIconPreviewCanvas" width="160" height="160" style="width:84px;height:84px;border-radius:20px;display:block;margin:8px auto 0;border:1px solid var(--border-subtle);"></canvas>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="sliders" class="svg-slot"></span> UI Shape, Glow & Font Customizer</span>
+                    <span class="sec-sub" id="btnResetTheme">Reset Default</span>
+                </div>
+                <div style="display:grid;gap:10px;font-size:0.76rem;">
+                    <div>
+                        <div style="display:flex;justify-content:space-between;">
+                            <span>Card Corner Radius</span><span id="lblRadius">20px</span>
+                        </div>
+                        <input type="range" id="sliderRadius" min="6" max="32" value="20" style="width:100%;" />
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;">
+                            <span>Neon Glow Intensity</span><span id="lblGlow">22%</span>
+                        </div>
+                        <input type="range" id="sliderGlow" min="0" max="60" value="22" style="width:100%;" />
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;">
+                            <span>Font Scale</span><span id="lblFontScale">100%</span>
+                        </div>
+                        <input type="range" id="sliderFontScale" min="85" max="120" value="100" style="width:100%;" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="sparkle" class="svg-slot"></span> 24 Instant Theme Presets</span>
+                    <span class="badge-tag">1-Tap Apply</span>
+                </div>
+                <div class="preset-grid" id="themePresetsGrid"></div>
+            </div>
+        </section>
+
+        <section class="tab-pane" id="tab-tools">
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="globe" class="svg-slot"></span> Multi-Currency Converter</span>
+                    <span class="badge-tag">10 Currencies</span>
+                </div>
+                <div class="input-row">
+                    <input type="number" id="fxAmount" class="m3-input" value="100" placeholder="Amount" />
+                    <select id="fxFrom" class="m3-select">
+                        <option value="USD">USD ($)</option>
+                        <option value="MMK">MMK (Ks)</option>
+                        <option value="THB">THB (฿)</option>
+                        <option value="SGD">SGD (S$)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="JPY">JPY (¥)</option>
+                        <option value="CNY">CNY (¥)</option>
+                        <option value="MYR">MYR (RM)</option>
+                        <option value="GBP">GBP (£)</option>
+                        <option value="USDT">USDT (₮)</option>
+                    </select>
+                    <select id="fxTo" class="m3-select">
+                        <option value="MMK">MMK (Ks)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="THB">THB (฿)</option>
+                        <option value="SGD">SGD (S$)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="JPY">JPY (¥)</option>
+                    </select>
+                </div>
+                <div id="fxResultBox" style="font-weight:800;color:var(--primary);font-size:0.95rem;">100 USD = 450,000 MMK</div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="users" class="svg-slot"></span> Split Bill & Tip Calculator</span>
+                    <span class="badge-tag">Group Split</span>
+                </div>
+                <div class="grid-3" style="margin-bottom:8px;">
+                    <input type="number" id="splitTotal" class="m3-input" placeholder="Bill Total" value="0" />
+                    <input type="number" id="splitPeople" class="m3-input" placeholder="People" value="2" />
+                    <input type="number" id="splitTip" class="m3-input" placeholder="Tip %" value="0" />
+                </div>
+                <div id="splitResultText" style="font-size:0.86rem;font-weight:700;color:var(--secondary);">Each Person Pays: 0 Ks</div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="trend_up" class="svg-slot"></span> Compound Savings Projector</span>
+                </div>
+                <div class="grid-3" style="margin-bottom:8px;">
+                    <input type="number" id="simMonthly" class="m3-input" placeholder="Monthly Save" value="0" />
+                    <input type="number" id="simRate" class="m3-input" placeholder="Annual %" value="10" />
+                    <input type="number" id="simYears" class="m3-input" placeholder="Years" value="5" />
+                </div>
+                <div id="simResultText" style="font-size:0.86rem;font-weight:700;color:var(--primary);">Enter monthly savings to project growth</div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="database" class="svg-slot"></span> Backup, Export & Data Reset</span>
+                </div>
+                <div class="grid-2">
+                    <button class="m3-btn" id="btnExportCsvFull"><span data-icon="download" class="svg-slot"></span> Export CSV</button>
+                    <button class="m3-btn secondary" id="btnExportJsonFull"><span data-icon="code" class="svg-slot"></span> Export JSON</button>
+                    <button class="m3-btn danger" id="btnClearAllZero"><span data-icon="trash" class="svg-slot"></span> Clear All to 0</button>
+                    <button class="m3-btn secondary" id="btnLoadDemoData"><span data-icon="refresh" class="svg-slot"></span> Load Sample Data</button>
+                </div>
+            </div>
+
+            <div class="m3-card">
+                <div class="sec-header">
+                    <span class="sec-title"><span data-icon="check_circle" class="svg-slot"></span> 112 Built-in Features Directory</span>
+                    <span class="badge-tag">All Active</span>
+                </div>
+                <input type="text" id="featureSearchInput" class="m3-input" placeholder="Search 112 features (e.g. Color, Icon, Export, Heatmap)..." style="margin-bottom:10px;" />
+                <div id="featureDirectoryList" style="max-height:320px;overflow-y:auto;"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <button class="fab-add" id="fabOpenModal" title="Add Transaction">
+        <span data-icon="plus" class="svg-slot"></span>
+    </button>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" data-tab="tab-home">
+            <span class="nav-pill"><span data-icon="home" class="svg-slot"></span></span>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" data-tab="tab-analytics">
+            <span class="nav-pill"><span data-icon="chart_bar" class="svg-slot"></span></span>
+            <span>Analytics</span>
+        </div>
+        <div class="nav-item" data-tab="tab-planning">
+            <span class="nav-pill"><span data-icon="target" class="svg-slot"></span></span>
+            <span>Budgets</span>
+        </div>
+        <div class="nav-item" data-tab="tab-colors">
+            <span class="nav-pill"><span data-icon="palette" class="svg-slot"></span></span>
+            <span>Colors</span>
+        </div>
+        <div class="nav-item" data-tab="tab-tools">
+            <span class="nav-pill"><span data-icon="grid" class="svg-slot"></span></span>
+            <span>100+ Tools</span>
+        </div>
+    </nav>
+</div>
+
+<div class="modal-backdrop" id="txModal">
+    <div class="modal-sheet">
+        <div class="sec-header">
+            <span class="sec-title" id="modalSheetTitle"><span data-icon="plus_circle" class="svg-slot"></span> New Transaction</span>
+            <button class="icon-btn" id="btnCloseModal"><span data-icon="close" class="svg-slot"></span></button>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:10px;" id="txTypeSwitch">
+            <button class="m3-btn" data-type="expense" id="typeBtnExpense" style="background:var(--expense);color:#fff;">Expense</button>
+            <button class="m3-btn secondary" data-type="income" id="typeBtnIncome">Income</button>
+            <button class="m3-btn secondary" data-type="transfer" id="typeBtnTransfer">Transfer</button>
+        </div>
+
+        <div class="input-row">
+            <input type="text" id="txAmountInput" class="m3-input" placeholder="Enter Amount (or math e.g. 5000+2500)" style="font-size:1.1rem;font-weight:800;" />
+            <button class="m3-btn secondary" id="btnEvalMath" title="Calculate">=</button>
+        </div>
+
+        <div class="input-row">
+            <input type="text" id="txTitleInput" class="m3-input" placeholder="Title (e.g. Salary, Lunch, Server Bill)" />
+        </div>
+
+        <div class="grid-2" style="margin-bottom:10px;">
+            <select id="txCategoryInput" class="m3-select">
+                <option value="Food & Dining">Food & Dining</option>
+                <option value="Salary & Freelance">Salary & Freelance</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Transport & Fuel">Transport & Fuel</option>
+                <option value="Gaming & Digital">Gaming & Digital</option>
+                <option value="Bills & Utilities">Bills & Utilities</option>
+                <option value="Business & Sales">Business & Sales</option>
+                <option value="Health & Fitness">Health & Fitness</option>
+                <option value="Education">Education</option>
+                <option value="Gift & Donation">Gift & Donation</option>
+            </select>
+            <select id="txWalletInput" class="m3-select"></select>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:10px;">
+            <input type="date" id="txDateInput" class="m3-input" />
+            <input type="text" id="txTagsInput" class="m3-input" placeholder="#tags (e.g. #work)" />
+        </div>
+
+        <div class="input-row">
+            <input type="text" id="txNoteInput" class="m3-input" placeholder="Optional merchant, receipt ref, or note..." />
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:8px 0 14px;font-size:0.8rem;">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                <input type="checkbox" id="txPinCheck" /> Star / Pin Record
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                <input type="checkbox" id="txTaxDeductible" /> Tax Deductible
+            </label>
+        </div>
+
+        <div style="display:flex;gap:8px;">
+            <button class="m3-btn" id="btnSaveTransaction" style="flex:1;padding:13px;">
+                <span data-icon="check_circle" class="svg-slot"></span> Save Record
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="pinModal">
+    <div class="modal-sheet" style="text-align:center;">
+        <div style="margin-bottom:10px;color:var(--primary);"><span data-icon="lock" class="svg-slot"></span></div>
+        <div class="sec-title" style="font-size:1.1rem;margin-bottom:4px;justify-content:center;">XoniFlow Vault Lock</div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:14px;">Enter your 4-digit PIN (Default: 1234) to unlock financial records.</p>
+        <input type="password" id="pinInputBox" maxlength="4" class="m3-input" style="text-align:center;font-size:1.4rem;letter-spacing:10px;max-width:180px;margin:0 auto 14px;display:block;" placeholder="****" />
+        <div style="display:flex;gap:8px;justify-content:center;">
+            <button class="m3-btn" id="btnUnlockPin">Unlock Vault</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
